@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Dani's - Comidas Rápidas Valledupar</title>
-    <meta name="description" content="El Dani's Valledupar. Hamburguesas, pizzas, salchipapas, hot dogs y patacones. Abierto 7pm a 2am.">
     <style>
         :root {
             --rojo-dani: #c41e3a;
-            --rojo-hover: #a01830;
             --verde: #25D366;
             --bg: #f8f9fa;
             --card: #ffffff;
@@ -131,13 +129,6 @@
         }
         .categoria {
             margin-bottom: 50px;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-        .categoria.visible {
-            opacity: 1;
-            transform: translateY(0);
         }
         .categoria h2 {
             color: var(--rojo-dani);
@@ -280,6 +271,7 @@
             margin-top: 50px;
             border-top: 4px solid var(--rojo-dani);
         }
+        .oculto { display: none !important; }
     </style>
 </head>
 <body>
@@ -295,7 +287,7 @@
         <span class="dot"></span> ABIERTO TODOS LOS DÍAS DE <span class="hora">7:00 PM A 2:00 AM</span>
     </div>
 
-    <div class="info-bar" id="navbar">
+    <div class="info-bar">
         <a href="https://wa.me/573216080520?text=Hola%20El%20Dani's,%20quiero%20hacer%20un%20pedido" class="info-item" target="_blank">
             <span class="icon">📱</span>
             <span>321 608 0520</span>
@@ -317,15 +309,15 @@
         <a href="https://wa.me/573216080520?text=Hola%20El%20Dani's,%20quiero%20hacer%20un%20pedido" class="btn-wsp" target="_blank">💬 Pedir por WhatsApp</a>
 
         <div class="filtros">
-            <button class="btn-filtro active" onclick="filtrar('todos')">Todo</button>
-            <button class="btn-filtro" onclick="filtrar('hamburguesa')">🍔 Hamburguesas</button>
-            <button class="btn-filtro" onclick="filtrar('pizza')">🍕 Pizzas</button>
-            <button class="btn-filtro" onclick="filtrar('hotdog')">🌭 Hot Dogs</button>
-            <button class="btn-filtro" onclick="filtrar('salchipapa')">🍟 Salchipapas</button>
-            <button class="btn-filtro" onclick="filtrar('patacon')">🫓 Patacones</button>
+            <button class="btn-filtro active" onclick="filtrar(this, 'todos')">Todo</button>
+            <button class="btn-filtro" onclick="filtrar(this, 'hamburguesa')">🍔 Hamburguesas</button>
+            <button class="btn-filtro" onclick="filtrar(this, 'pizza')">🍕 Pizzas</button>
+            <button class="btn-filtro" onclick="filtrar(this, 'hotdog')">🌭 Hot Dogs</button>
+            <button class="btn-filtro" onclick="filtrar(this, 'salchipapa')">🍟 Salchipapas</button>
+            <button class="btn-filtro" onclick="filtrar(this, 'patacon')">🫓 Patacones</button>
         </div>
 
-        <div class="categoria visible" data-cat="hamburguesa">
+        <div class="categoria" data-cat="hamburguesa">
             <h2>🍔 HAMBURGUESAS</h2>
             <div class="productos">
                 <div class="item" onclick="pedirProducto('Hamburguesa Sencilla', 10000)">
@@ -351,7 +343,7 @@
             </div>
         </div>
 
-        <div class="categoria visible" data-cat="pizza">
+        <div class="categoria" data-cat="pizza">
             <h2>🍕 PIZZA</h2>
             <div class="productos">
                 <div class="item" onclick="pedirProducto('Pizza Personal 4 porciones', 12000)">
@@ -378,7 +370,7 @@
             <p style="text-align:center; color:#666; margin-top:15px; font-size:0.9rem;"><strong>Especialidad:</strong> Hawaiana, Jamón, Salami, Peperoni, Mexicana, Maíz, Tocineta, Pollo</p>
         </div>
 
-        <div class="categoria visible" data-cat="hotdog">
+        <div class="categoria" data-cat="hotdog">
             <h2>🌭 HOT DOG</h2>
             <div class="productos">
                 <div class="item" onclick="pedirProducto('Hot Dog Sencillo', 7000)">
@@ -404,7 +396,7 @@
             </div>
         </div>
 
-        <div class="categoria visible" data-cat="salchipapa">
+        <div class="categoria" data-cat="salchipapa">
             <h2>🍟 SALCHIPAPA</h2>
             <div class="productos">
                 <div class="item" onclick="pedirProducto('Salchipapa Sencilla', 12000)">
@@ -434,7 +426,7 @@
             </div>
         </div>
 
-        <div class="categoria visible" data-cat="patacon">
+        <div class="categoria" data-cat="patacon">
             <h2>🫓 PATACONES</h2>
             <div class="productos">
                 <div class="item" onclick="pedirProducto('Patacón Completo', 18000)">
@@ -476,4 +468,24 @@
         <p><strong>Horario: 7:00 PM - 2:00 AM</strong> | Aceptamos Nequi y Bancolombia</p>
     </footer>
 
-   
+    <script>
+        function filtrar(boton, cat) {
+            const botones = document.querySelectorAll('.btn-filtro');
+            botones.forEach(btn => btn.classList.remove('active'));
+            boton.classList.add('active');
+
+            const categorias = document.querySelectorAll('.categoria');
+            categorias.forEach(div => {
+                if (cat === 'todos' || div.dataset.cat === cat) {
+                    div.classList.remove('oculto');
+                } else {
+                    div.classList.add('oculto');
+                }
+            });
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        }
