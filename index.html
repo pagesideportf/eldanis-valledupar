@@ -4,112 +4,492 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Dani's - Comidas Rápidas Valledupar</title>
+    <meta name="description" content="El Dani's Valledupar. Hamburguesas, pizzas, salchipapas, hot dogs y patacones. Abierto 7pm a 2am. Domicilios Mz 15 casa 46 Mareigua.">
     <style>
+        :root {
+            --naranja: #ff6b00;
+            --amarillo: #ffc107;
+            --verde: #25D366;
+            --bg: #f8f9fa;
+            --card: #ffffff;
+            --texto: #1a1a1a;
+            --borde: #e0e0e0;
+            --sombra: rgba(0,0,0,0.1);
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', sans-serif; background: #0a0a0a; color: #f5f5f5; }
-        header { background: linear-gradient(135deg, #ff6b00, #ffc107); padding: 30px 20px; text-align: center; }
-        header h1 { font-size: 2.8rem; color: #000; font-weight: 900; }
-        .logo-sub { color: #1a1a1a; font-size: 1.2rem; margin-top: 5px; font-weight: 600; }
-        .info-bar { background: #1a1a1a; padding: 15px; text-align: center; border-bottom: 2px solid #ffc107; position: sticky; top: 0; z-index: 100; }
-        .info-bar a { color: #25D366; text-decoration: none; font-weight: bold; margin: 0 15px; display: inline-block; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
-        .categoria { margin-bottom: 50px; }
-        .categoria h2 { color: #ffc107; font-size: 2rem; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 3px solid #ff6b00; }
-        .productos { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; }
-        .item { background: #1a1a1a; border-radius: 12px; padding: 18px; border: 1px solid #2a2a2a; display: flex; justify-content: space-between; align-items: start; gap: 10px; }
-        .item-info h3 { color: #fff; font-size: 1.05rem; margin-bottom: 4px; }
-        .item-info p { color: #999; font-size: 0.8rem; line-height: 1.4; }
-        .precio { color: #4caf50; font-size: 1.3rem; font-weight: bold; white-space: nowrap; }
-        .btn-wsp { display: block; background: #25D366; color: white; padding: 14px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; text-align: center; margin: 30px auto; max-width: 320px; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(37,211,102,0.3); }
-        .btn-flotante { position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; text-decoration: none; box-shadow: 0 4px 20px rgba(37,211,102,0.5); z-index: 1000; }
-        .galeria-fotos { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin: 40px 0; }
-        .galeria-fotos img { width: 100%; height: 200px; object-fit: cover; border-radius: 12px; border: 2px solid #2a2a2a; }
-        footer { text-align: center; padding: 30px 20px; color: #666; background: #000; margin-top: 40px; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--texto);
+            overflow-x: hidden;
+        }
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--naranja), var(--amarillo));
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            animation: brillo 6s linear infinite;
+        }
+        @keyframes brillo {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        header h1 {
+            font-size: 3rem;
+            color: #000;
+            font-weight: 900;
+            position: relative;
+            z-index: 2;
+        }
+        .logo-sub {
+            color: #1a1a1a;
+            font-size: 1.2rem;
+            margin-top: 5px;
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+        }
+        /* Horario destacado */
+        .horario {
+            background: #000;
+            color: var(--amarillo);
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+        .horario span {
+            color: #4caf50;
+        }
+        /* Barra info sticky */
+        .info-bar {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            text-align: center;
+            border-bottom: 2px solid var(--amarillo);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px var(--sombra);
+        }
+        .info-bar.scrolled {
+            padding: 10px;
+            box-shadow: 0 4px 20px var(--sombra);
+        }
+        .info-bar a {
+            color: var(--verde);
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 15px;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        .info-bar a:hover {
+            transform: scale(1.1);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        /* Filtros */
+        .filtros {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        .btn-filtro {
+            background: var(--card);
+            border: 2px solid var(--borde);
+            color: var(--texto);
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px var(--sombra);
+        }
+        .btn-filtro:hover, .btn-filtro.active {
+            background: var(--amarillo);
+            color: #000;
+            border-color: var(--amarillo);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(255,193,7,0.4);
+        }
+        /* Categorías */
+        .categoria {
+            margin-bottom: 50px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        .categoria.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .categoria h2 {
+            color: var(--naranja);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--amarillo);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .productos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        /* Cards */
+        .item {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 18px;
+            border: 1px solid var(--borde);
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            gap: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 2px 8px var(--sombra);
+        }
+        .item:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(255,107,0,0.25);
+            border-color: var(--naranja);
+        }
+        .item-info h3 {
+            color: var(--texto);
+            font-size: 1.05rem;
+            margin-bottom: 4px;
+        }
+        .item-info p {
+            color: #666;
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+        .precio {
+            color: #2e7d32;
+            font-size: 1.4rem;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        /* Botones */
+        .btn-wsp {
+            display: block;
+            background: var(--verde);
+            color: white;
+            padding: 14px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            text-align: center;
+            margin: 30px auto;
+            max-width: 320px;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(37,211,102,0.3);
+            transition: all 0.3s ease;
+        }
+        .btn-wsp:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 25px rgba(37,211,102,0.5);
+        }
+        .btn-flotante {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--verde);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+            z-index: 1000;
+            animation: pulso 2s infinite;
+        }
+        @keyframes pulso {
+            0% { box-shadow: 0 0 rgba(37,211,102,0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37,211,102,0); }
+            100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+        }
+        /* Galería */
+        .galeria-fotos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 40px 0;
+        }
+        .galeria-fotos img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 2px solid var(--borde);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 10px var(--sombra);
+        }
+        .galeria-fotos img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(255,107,0,0.3);
+        }
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--amarillo);
+            color: #000;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: 2000;
+            box-shadow: 0 4px 15px var(--sombra);
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #666;
+            background: #fff;
+            margin-top: 40px;
+            border-top: 3px solid var(--amarillo);
+        }
+        /* Loader */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s;
+        }
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--borde);
+            border-top: 4px solid var(--naranja);
+            border-radius: 50%;
+            animation: girar 1s linear infinite;
+        }
+        @keyframes girar {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+    </div>
+
     <header>
         <h1>EL DANI'S</h1>
-        <div class="logo-sub">El sabor que buscas en Valledupar</div>
+        <div class="logo-sub">El sabor que buscas - Valledupar</div>
     </header>
 
-    <div class="info-bar">
+    <!-- HORARIO NUEVO -->
+    <div class="horario">
+        🕐 ABIERTO TODOS LOS DÍAS DE <span>7:00 PM A 2:00 AM</span>
+    </div>
+
+    <div class="info-bar" id="navbar">
         <a href="https://wa.me/573216080520?text=Hola%20El%20Dani's,%20quiero%20hacer%20un%20pedido" target="_blank">📱 321 608 0520</a>
         <a href="https://maps.google.com/?q=Mz+15+casa+46+Mareigua+Valledupar" target="_blank">📍 Mz 15 casa 46 - Mareigua</a>
     </div>
 
     <div class="container">
         <div class="galeria-fotos">
-            <img src="burguer.jpg" alt="Hamburguesa El Dani's">
-            <img src="pizza.jpg" alt="Pizza El Dani's">
-            <img src="salchipapa.jpg" alt="Salchipapa El Dani's">
-            <img src="perro.jpg" alt="Hot Dog El Dani's">
+            <img src="burguer.jpg" alt="Hamburguesa El Dani's" onclick="abrirWhatsApp('Hola, quiero una hamburguesa')">
+            <img src="pizza.jpg" alt="Pizza El Dani's" onclick="abrirWhatsApp('Hola, quiero una pizza')">
+            <img src="salchipapa.jpg" alt="Salchipapa El Dani's" onclick="abrirWhatsApp('Hola, quiero una salchipapa')">
+            <img src="perro.jpg" alt="Hot Dog El Dani's" onclick="abrirWhatsApp('Hola, quiero un hot dog')">
         </div>
 
         <a href="https://wa.me/573216080520?text=Hola%20El%20Dani's,%20quiero%20hacer%20un%20pedido" class="btn-wsp" target="_blank">💬 Pedir por WhatsApp</a>
 
-        <!-- HAMBURGUESAS - PRECIOS REALES -->
-        <div class="categoria">
+        <div class="filtros">
+            <button class="btn-filtro active" onclick="filtrar('todos')">Todo</button>
+            <button class="btn-filtro" onclick="filtrar('hamburguesa')">🍔 Hamburguesas</button>
+            <button class="btn-filtro" onclick="filtrar('pizza')">🍕 Pizzas</button>
+            <button class="btn-filtro" onclick="filtrar('hotdog')">🌭 Hot Dogs</button>
+            <button class="btn-filtro" onclick="filtrar('salchipapa')">🍟 Salchipapas</button>
+            <button class="btn-filtro" onclick="filtrar('patacon')">🫓 Patacones</button>
+        </div>
+
+        <div class="categoria" data-cat="hamburguesa">
             <h2>🍔 HAMBURGUESAS</h2>
             <div class="productos">
-                <div class="item"><div class="item-info"><h3>Hamburguesa Sencilla</h3></div><div class="precio">$10.000</div></div>
-                <div class="item"><div class="item-info"><h3>Hamburguesa Ranchera</h3></div><div class="precio">$13.000</div></div>
-                <div class="item"><div class="item-info"><h3>Hamburguesa Con Papas</h3></div><div class="precio">$14.000</div></div>
-                <div class="item"><div class="item-info"><h3>Hamburguesa Doble Carne</h3></div><div class="precio">$16.000</div></div>
-                <div class="item"><div class="item-info"><h3>Hamburguesa Especial DANIS</h3><p>Carne de res, carne Ranchera</p></div><div class="precio">$20.000</div></div>
+                <div class="item" onclick="pedirProducto('Hamburguesa Sencilla', 10000)">
+                    <div class="item-info"><h3>Hamburguesa Sencilla</h3></div>
+                    <div class="precio">$10.000</div>
+                </div>
+                <div class="item" onclick="pedirProducto('Hamburguesa Ranchera', 13000)">
+                    <div class="item-info"><h3>Hamburguesa Ranchera</h3></div>
+                    <div class="precio">$13.000</div>
+                </div>
+                <div class="item" onclick="pedirProducto('Hamburguesa Con Papas', 14000)">
+                    <div class="item-info"><h3>Hamburguesa Con Papas</h3></div>
+                    <div class="precio">$14.000</div>
+                </div>
+                <div class="item" onclick="pedirProducto('Hamburguesa Doble Carne', 16000)">
+                    <div class="item-info"><h3>Hamburguesa Doble Carne</h3></div>
+                    <div class="precio">$16.000</div>
+                </div>
+                <div class="item" onclick="pedirProducto('Hamburguesa Especial DANIS', 20000)">
+                    <div class="item-info"><h3>Hamburguesa Especial DANIS</h3><p>Carne de res, carne Ranchera</p></div>
+                    <div class="precio">$20.000</div>
+                </div>
             </div>
         </div>
 
-        <!-- PIZZA - PRECIOS REALES -->
-        <div class="categoria">
+        <div class="categoria" data-cat="pizza">
             <h2>🍕 PIZZA</h2>
             <div class="productos">
-                <div class="item"><div class="item-info"><h3>Personal - 4 Porciones</h3></div><div class="precio">$12.000</div></div>
-                <div class="item"><div class="item-info"><h3>Pequeña - 8 Porciones</h3></div><div class="precio">$17.000</div></div>
-                <div class="item"><div class="item-info"><h3>Mediana - 12 Porciones</h3></div><div class="precio">$22.000</div></div>
-                <div class="item"><div class="item-info"><h3>Familiar - 16 Porciones</h3></div><div class="precio">$32.000</div></div>
-                <div class="item"><div class="item-info"><h3>Mega Familiar - 20 Porciones</h3></div><div class="precio">$45.000</div></div>
-            </div>
-            <p style="text-align:center; color:#aaa; margin-top:15px; font-size:0.9rem;"><strong>Especialidad:</strong> Hawaiana, Jamón, Salami, Peperoni, Mexicana, Maíz, Tocineta, Pollo</p>
+                <div class="item" onclick="pedirProducto('Pizza Personal 4 porciones', 12000)">
+                    <div class="item-info"><h3>Personal - 4 Porciones</h3></div>
+                    <div class="precio">$12.000</div>
+                </div>
+                <div class="item" onclick="pedirProducto('Pizza Pequeña 8 porciones', 17000)">
+                    <div class="item-info"><h3>Pequeña - 8 Porciones</h3></div>
+                    <div class="precio">$17.000</div>
+                </div>
+                <div class="item" onclick="pedirProducto('Pizza Mediana 12 porciones', 22000)">
+                    <div class="item-info"><h3>Mediana - 12 Porciones</h3></div>
+                    <div class="precio">$22.000</div>
+                </div>
+                <div class="item" onclick="pedirProducto('Pizza Familiar 16 porciones', 32000)">
+                    <div class="item-info"><h3>Familiar - 16 Porciones</h3></div>
+                    <div class="precio">$32.000</div>
+                </div>
+                <div class="item" onclick="pedirProducto('Pizza Mega Familiar 20 porciones', 45000)">
+                    <div class="item-info"><h3>Mega Familiar - 20 Porciones</h3></div>
+                    <div class="precio">$45.000</div>
+                </div>
+            <p style="text-align:center; color:#666; margin-top:15px; font-size:0.9rem;"><strong>Especialidad:</strong> Hawaiana, Jamón, Salami, Peperoni, Mexicana, Maíz, Tocineta, Pollo</p>
         </div>
 
-        <!-- HOT DOG - PRECIOS REALES -->
-        <div class="categoria">
+        <div class="categoria" data-cat="hotdog">
             <h2>🌭 HOT DOG</h2>
             <div class="productos">
-                <div class="item"><div class="item-info"><h3>Hot Dog Sencillo</h3></div><div class="precio">$7.000</div></div>
-                <div class="item"><div class="item-info"><h3>Hot Dog Con Papas</h3></div><div class="precio">$9.000</div></div>
-                <div class="item"><div class="item-info"><h3>Hot Dog Cazador</h3></div><div class="precio">$10.000</div></div>
-                <div class="item"><div class="item-info"><h3>Hot Dog Ranchero</h3></div><div class="precio">$12.000</div></div>
-                <div class="item"><div class="item-info"><h3>Hot Dog Suizo</h3></div><div class="precio">$14.000</div></div>
+                <div class="item" onclick="pedirProducto('Hot Dog Sencillo', 7000)">
+                    <div class="item-info"><h3>Hot Dog Sencillo</h3></div>
+                    <div class="precio">$7.000</div>
+                </div>
+                <div class="item" onclick="pedirProducto('Hot Dog Con Papas', 9000)">
+                    <div class="item-info"><h3>Hot Dog Con Papas</h3></div>
+                    <div class="precio">$9.000</div>
+                </div>
+                <div class="item" onclick="pedirProducto('Hot Dog Cazador', 10000)">
+                    <div class="item-info"><h3>Hot Dog Cazador</h3></div>
+                    <div class="precio">$10.000</div>
+                </div>
+                <div class="item" onclick="pedirProducto('Hot Dog Ranchero', 12000)">
+                    <div class="item-info"><h3>Hot Dog Ranchero</h3></div>
+                    <div class="precio">$12.000</div>
+                </div>
+                <div class="item" onclick="pedirProducto('Hot Dog Suizo', 14000)">
+                    <div class="item-info"><h3>Hot Dog Suizo</h3></div>
+                    <div class="precio">$14.000</div>
+                </div>
             </div>
         </div>
 
-        <!-- SALCHIPAPA - PRECIOS REALES -->
-        <div class="categoria">
+        <div class="categoria" data-cat="salchipapa">
             <h2>🍟 SALCHIPAPA</h2>
             <div class="productos">
-                <div class="item"><div class="item-info"><h3>Salchipapa Sencilla</h3></div><div class="precio">$12.000</div></div>
-                <div class="item"><div class="item-info"><h3>Salchipapa</h3><p>Salchicha, Chorizo, Butti</p></div><div class="precio">$16.000</div></div>
-                <div class="item"><div class="item-info"><h3>Salchipapa</h3><p>Salchicha, Chorizo, Butti, Pollo, Maíz</p></div><div class="precio">$24.000</div></div>
-                <div class="item"><div class="item-info"><h3>Salchipapa</h3><p>Salchicha, Chorizo, Butti, Pollo, Maíz, Tocineta, Jamón Ranchera</p></div><div class="precio">$34.000</div></div>
-                <div class="item"><div class="item-info"><h3>Salchipapa</h3><p>Salchicha, Chorizo, Butti, Pollo, Maíz, Tocineta, Jamón, Piña caramelizada</p></div><div class="precio">$44.000</div></div>
-                <div class="item"><div class="item-info"><h3>Salchipapa DANI'S Especial</h3><p>Salchicha, Chorizo, Butti, Pollo, Maíz, Tocineta, Jamón, Ranchera</p></div><div class="precio">$65.000</div></div>
+                <div class="item" onclick="pedirProducto('Salchipapa Sencilla', 12000)">
+                    <div class="item-info"><h3>Salchipapa Sencilla</h3></div>
+                    <div class="precio">$12.000</div>
+                </div>
+                <div class="item" onclick="pedirProducto('Salchipapa con Chorizo y Butti', 16000)">
+                    <div class="item-info"><h3>Salchipapa</h3><p>Salchicha, Chorizo, Butti</p></div>
+                    <div class="precio">$16.000</div>
+                </div>
+                <div class="item" onclick="pedirProducto('Salchipapa con Pollo y Maíz', 24000)">
+                    <div class="item-info"><h3>Salchipapa</h3><p>Salchicha, Chorizo, Butti, Pollo, Maíz</p></div>
+                    <div class="precio">$24.000</div>
+                </div>
+                <div class="item" onclick="pedirProducto('Salchipapa Ranchera', 34000)">
+                    <div class="item-info"><h3>Salchipapa</h3><p>Salchicha, Chorizo, Butti, Pollo, Maíz, Tocineta, Jamón Ranchera</p></div>
+                    <div class="precio">$34.000</div>
+                </div>
+                <div class="item" onclick="pedirProducto('Salchipapa con Piña', 44000)">
+                    <div class="item-info"><h3>Salchipapa</h3><p>Salchicha, Chorizo, Butti, Pollo, Maíz, Tocineta, Jamón, Piña caramelizada</p></div>
+                    <div class="precio">$44.000</div>
+                </div>
+                <div class="item" onclick="pedirProducto('Salchipapa DANIS Especial', 65000)">
+                    <div class="item-info"><h3>Salchipapa DANI'S Especial</h3><p>Salchicha, Chorizo, Butti, Pollo, Maíz, Tocineta, Jamón, Ranchera</p></div>
+                    <div class="precio">$65.000</div>
+                </div>
             </div>
         </div>
 
-        <!-- PATACONES - PRECIOS REALES -->
-        <div class="categoria">
+        <div class="categoria" data-cat="patacon">
             <h2>🫓 PATACONES</h2>
             <div class="productos">
-                <div class="item"><div class="item-info"><h3>Patacón</h3><p>Salchicha, chorizo, butifarra, pollo, maíz, tocineta</p></div><div class="precio">$18.000</div></div>
-            </div>
-            <h3 style="color:#ffc107; margin:25px 0 15px 0;">Adicionales:</h3>
+                <div class="item" onclick="pedirProducto('Patacón Completo', 18000)">
+                    <div class="item-info"><h3>Patacón</h3><p>Salchicha, chorizo, butifarra, pollo, maíz, tocineta</p></div>
+                    <div class="precio">$18.000</div>
+                </div>
+            <h3 style="color:#ff6b00; margin:25px 0 15px 0;">Adicionales:</h3>
             <div class="productos">
-                <div class="item"><div class="item-info"><h3>Queso Costeño</h3></div><div class="precio">$3.000</div></div>
-                <div class="item"><div class="item-info"><h3>Salchicha Ranchera</h3></div><div class="precio">$3.000</div></div>
-                <div class="item"><div class="item-info"><h3>Queso Mozzarella</h3></div><div class="precio">$5.000</div></div>
-                <div class="item"><div class="item-info"><h3>Porción De Papas</h3></div><div class="precio">$6.000</div></div>
+                <div class="item" onclick="pedirProducto('Queso Costeño', 3000)">
+                    <div class="item-info"><h3>Queso Costeño</h3></div>
+                    <div class="precio">$3.000</div>
+                </div>
+                <div class="item" onclick="pedirProducto('Salchicha Ranchera', 3000)">
+                    <div class="item-info"><h3>Salchicha Ranchera</h3></div>
+                    <div class="precio">$3.000</div>
+                </div>
+                <div class="item" onclick="pedirProducto('Queso Mozzarella', 5000)">
+                    <div class="item-info"><h3>Queso Mozzarella</h3></div>
+                    <div class="precio">$5.000</div>
+                </div>
+                <div class="item" onclick="pedirProducto('Porción De Papas', 6000)">
+                    <div class="item-info"><h3>Porción De Papas</h3></div>
+                    <div class="precio">$6.000</div>
+                </div>
             </div>
         </div>
 
@@ -118,10 +498,77 @@
 
     <a href="https://wa.me/573216080520?text=Hola%20El%20Dani's,%20quiero%20hacer%20un%20pedido" class="btn-flotante" target="_blank">💬</a>
 
+    <div class="toast" id="toast">Abriendo WhatsApp...</div>
+
     <footer>
         <p><strong>EL DANI'S - COMIDAS RÁPIDAS</strong></p>
         <p>Mz 15 casa 46 - Mareigua, Valledupar | WhatsApp: 321 608 0520</p>
-        <p>Aceptamos Nequi y Bancolombia</p>
+        <p><strong>Horario: 7:00 PM - 2:00 AM</strong> | Aceptamos Nequi y Bancolombia</p>
     </footer>
+
+    <script>
+        window.addEventListener('load', () => {
+            setTimeout(() => document.getElementById('loader').classList.add('hidden'), 800);
+        });
+
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.categoria').forEach(cat => observer.observe(cat));
+
+        function filtrar(cat) {
+            const botones = document.querySelectorAll('.btn-filtro');
+            botones.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const categorias = document.querySelectorAll('.categoria');
+            categorias.forEach(div => {
+                if (cat === 'todos' || div.dataset.cat === cat) {
+                    div.style.display = 'block';
+                    setTimeout(() => div.classList.add('visible'), 10);
+                } else {
+                    div.style.display = 'none';
+                    div.classList.remove('visible');
+                }
+            });
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+
+        function abrirWhatsApp(mensaje) {
+            showToast();
+            setTimeout(() => {
+                window.open(`https://wa.me/573216080520?text=${encodeURIComponent(mensaje)}`, '_blank');
+            }, 300);
+        }
+
+        function pedirProducto(nombre, precio) {
+            const mensaje = `Hola El Dani's, quiero pedir: ${nombre} - $${precio.toLocaleString('es-CO')}`;
+            abrirWhatsApp(mensaje);
+        }
+
+        document.querySelectorAll('.item').forEach(item => {
+            item.addEventListener('click', function() {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => this.style.transform = '', 100);
+            });
+        });
+    </script>
 </body>
 </html>
