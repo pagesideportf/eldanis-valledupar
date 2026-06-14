@@ -95,28 +95,66 @@
         .container {
             max-width: 100%;
             margin: 0 auto;
-            padding: 40px 0 40px 20px;
+            padding: 40px 0 40px 0;
+            position: relative;
         }
         
-        /* SCROLL HORIZONTAL NUEVO */
+        /* CONTENEDOR DEL CARRUSEL */
+        .carrusel-container {
+            position: relative;
+            padding: 0 20px;
+        }
+        
+        /* SCROLL HORIZONTAL SUAVE */
         .menu-wrapper {
             display: flex;
             overflow-x: auto;
             gap: 25px;
-            padding-bottom: 20px;
+            padding: 10px 0 20px 0;
             scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
         }
         .menu-wrapper::-webkit-scrollbar {
-            height: 8px;
+            height: 6px;
         }
         .menu-wrapper::-webkit-scrollbar-track {
-            background: var(--bg);
+            background: var(--borde);
             border-radius: 10px;
         }
         .menu-wrapper::-webkit-scrollbar-thumb {
             background: var(--rojo-dani);
             border-radius: 10px;
+        }
+        
+        /* BOTONES FLECHA */
+        .btn-scroll {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--rojo-dani);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        .btn-scroll:hover {
+            background: #a01729;
+            transform: translateY(-50%) scale(1.1);
+        }
+        .btn-scroll.izq { left: 5px; }
+        .btn-scroll.der { right: 5px; }
+        @media (max-width: 768px) {
+            .btn-scroll { display: none; }
         }
         
         .menu-seccion {
@@ -126,10 +164,10 @@
             box-shadow: 0 4px 20px var(--sombra);
             border: 2px solid var(--borde);
             transition: all 0.3s ease;
-            min-width: 340px;
-            max-width: 340px;
+            min-width: 320px;
+            max-width: 320px;
             flex: 0 0 auto;
-            scroll-snap-align: start;
+            scroll-snap-align: center;
         }
         .menu-seccion:hover {
             transform: translateY(-5px);
@@ -138,40 +176,40 @@
         }
         .menu-foto {
             width: 100%;
-            height: 200px;
+            height: 180px;
             object-fit: cover;
             cursor: pointer;
         }
         .menu-contenido {
-            padding: 20px;
+            padding: 18px;
         }
         .menu-titulo {
             color: var(--rojo-dani);
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             margin-bottom: 8px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             font-weight: 900;
         }
         .menu-sub {
             color: var(--gris);
-            font-size: 0.85rem;
-            margin-bottom: 15px;
+            font-size: 0.8rem;
+            margin-bottom: 12px;
         }
         .productos {
             display: grid;
-            gap: 10px;
+            gap: 8px;
         }
         .item {
             background: var(--bg);
-            border-radius: 12px;
-            padding: 12px 15px;
+            border-radius: 10px;
+            padding: 10px 12px;
             border: 2px solid var(--borde);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             transition: all 0.2s ease;
             cursor: pointer;
         }
@@ -182,18 +220,18 @@
         }
         .item-info h3 {
             color: var(--texto);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             margin-bottom: 2px;
             font-weight: 700;
         }
         .item-info p {
             color: var(--gris);
-            font-size: 0.75rem;
-            line-height: 1.3;
+            font-size: 0.7rem;
+            line-height: 1.2;
         }
         .precio {
             color: var(--rojo-dani);
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 900;
             white-space: nowrap;
         }
@@ -302,173 +340,146 @@
     <div class="container">
         <a href="https://wa.me/573216080520?text=Hola%20El%20Dani's,%20quiero%20hacer%20un%20pedido" class="btn-wsp" target="_blank">💬 Pedir por WhatsApp</a>
         
-        <div class="indicador-scroll">👈 Desliza pa ver todo el menú 👉</div>
+        <div class="indicador-scroll">👈 Desliza suave o usa las flechas 👉</div>
 
-        <!-- WRAPPER DE SCROLL HORIZONTAL -->
-        <div class="menu-wrapper">
+        <div class="carrusel-container">
+            <button class="btn-scroll izq" onclick="scrollMenu(-1)">‹</button>
+            <button class="btn-scroll der" onclick="scrollMenu(1)">›</button>
             
-            <!-- HAMBURGUESAS -->
-            <div class="menu-seccion">
-                <img src="burguer.jpg" alt="Hamburguesas El Dani's" class="menu-foto" onclick="abrirWhatsApp('Hola, quiero ver las hamburguesas')">
-                <div class="menu-contenido">
-                    <h2 class="menu-titulo">🍔 HAMBURGUESAS</h2>
-                    <p class="menu-sub">Carne 100% de res, pan artesanal</p>
-                    <div class="productos">
-                        <div class="item" onclick="pedirProducto('Hamburguesa Sencilla', 10000)">
-                            <div class="item-info"><h3>Hamburguesa Sencilla</h3></div>
-                            <div class="precio">$10.000</div>
-                        </div>
-                        <div class="item" onclick="pedirProducto('Hamburguesa Ranchera', 13000)">
-                            <div class="item-info"><h3>Hamburguesa Ranchera</h3></div>
-                            <div class="precio">$13.000</div>
-                        </div>
-                        <div class="item" onclick="pedirProducto('Hamburguesa Con Papas', 14000)">
-                            <div class="item-info"><h3>Hamburguesa Con Papas</h3></div>
-                            <div class="precio">$14.000</div>
-                        </div>
-                        <div class="item" onclick="pedirProducto('Hamburguesa Doble Carne', 16000)">
-                            <div class="item-info"><h3>Hamburguesa Doble Carne</h3></div>
-                            <div class="precio">$16.000</div>
-                        </div>
-                        <div class="item" onclick="pedirProducto('Hamburguesa Especial DANIS', 20000)">
-                            <div class="item-info"><h3>Especial DANIS</h3><p>Carne de res + carne Ranchera</p></div>
-                            <div class="precio">$20.000</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- PIZZAS -->
-            <div class="menu-seccion">
-                <img src="pizza.jpg" alt="Pizzas El Dani's" class="menu-foto" onclick="abrirWhatsApp('Hola, quiero ver las pizzas')">
-                <div class="menu-contenido">
-                    <h2 class="menu-titulo">🍕 PIZZAS</h2>
-                    <p class="menu-sub"><strong>Sabores:</strong> Hawaiana, Jamón, Salami, Peperoni, Mexicana, Maíz, Tocineta, Pollo</p>
-                    <div class="productos">
-                        <div class="item" onclick="pedirProducto('Pizza Personal 4 porciones', 12000)">
-                            <div class="item-info"><h3>Personal</h3><p>4 Porciones</p></div>
-                            <div class="precio">$12.000</div>
-                        </div>
-                        <div class="item" onclick="pedirProducto('Pizza Pequeña 8 porciones', 17000)">
-                            <div class="item-info"><h3>Pequeña</h3><p>8 Porciones</p></div>
-                            <div class="precio">$17.000</div>
-                        </div>
-                        <div class="item" onclick="pedirProducto('Pizza Mediana 12 porciones', 22000)">
-                            <div class="item-info"><h3>Mediana</h3><p>12 Porciones</p></div>
-                            <div class="precio">$22.000</div>
-                        </div>
-                        <div class="item" onclick="pedirProducto('Pizza Familiar 16 porciones', 32000)">
-                            <div class="item-info"><h3>Familiar</h3><p>16 Porciones</p></div>
-                            <div class="precio">$32.000</div>
-                        </div>
-                        <div class="item" onclick="pedirProducto('Pizza Mega Familiar 20 porciones', 45000)">
-                            <div class="item-info"><h3>Mega Familiar</h3><p>20 Porciones</p></div>
-                            <div class="precio">$45.000</div>
+            <!-- WRAPPER DE SCROLL HORIZONTAL -->
+            <div class="menu-wrapper" id="menuWrapper">
+                
+                <!-- HAMBURGUESAS -->
+                <div class="menu-seccion">
+                    <img src="burguer.jpg" alt="Hamburguesas El Dani's" class="menu-foto" onclick="abrirWhatsApp('Hola, quiero ver las hamburguesas')">
+                    <div class="menu-contenido">
+                        <h2 class="menu-titulo">🍔 HAMBURGUESAS</h2>
+                        <p class="menu-sub">Carne 100% de res, pan artesanal</p>
+                        <div class="productos">
+                            <div class="item" onclick="pedirProducto('Hamburguesa Sencilla', 10000)">
+                                <div class="item-info"><h3>Hamburguesa Sencilla</h3></div>
+                                <div class="precio">$10.000</div>
+                            </div>
+                            <div class="item" onclick="pedirProducto('Hamburguesa Ranchera', 13000)">
+                                <div class="item-info"><h3>Hamburguesa Ranchera</h3></div>
+                                <div class="precio">$13.000</div>
+                            </div>
+                            <div class="item" onclick="pedirProducto('Hamburguesa Con Papas', 14000)">
+                                <div class="item-info"><h3>Hamburguesa Con Papas</h3></div>
+                                <div class="precio">$14.000</div>
+                            </div>
+                            <div class="item" onclick="pedirProducto('Hamburguesa Doble Carne', 16000)">
+                                <div class="item-info"><h3>Hamburguesa Doble Carne</h3></div>
+                                <div class="precio">$16.000</div>
+                            </div>
+                            <div class="item" onclick="pedirProducto('Hamburguesa Especial DANIS', 20000)">
+                                <div class="item-info"><h3>Especial DANIS</h3><p>Carne de res + carne Ranchera</p></div>
+                                <div class="precio">$20.000</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- SALCHIPAPA -->
-            <div class="menu-seccion">
-                <img src="salchipapa.jpg" alt="Salchipapas El Dani's" class="menu-foto" onclick="abrirWhatsApp('Hola, quiero ver las salchipapas')">
-                <div class="menu-contenido">
-                    <h2 class="menu-titulo">🍟 SALCHIPAPAS</h2>
-                    <p class="menu-sub">La más pedida de Valledupar</p>
-                    <div class="productos">
-                        <div class="item" onclick="pedirProducto('Salchipapa Sencilla', 12000)">
-                            <div class="item-info"><h3>Sencilla</h3></div>
-                            <div class="precio">$12.000</div>
-                        </div>
-                        <div class="item" onclick="pedirProducto('Salchipapa con Chorizo y Butti', 16000)">
-                            <div class="item-info"><h3>Con Chorizo y Butti</h3></div>
-                            <div class="precio">$16.000</div>
-                        </div>
-                        <div class="item" onclick="pedirProducto('Salchipapa con Pollo y Maíz', 24000)">
-                            <div class="item-info"><h3>Con Pollo y Maíz</h3></div>
-                            <div class="precio">$24.000</div>
-                        </div>
-                        <div class="item" onclick="pedirProducto('Salchipapa Ranchera', 34000)">
-                            <div class="item-info"><h3>Ranchera</h3><p>+ Tocineta + Jamón</p></div>
-                            <div class="precio">$34.000</div>
-                        </div>
-                        <div class="item" onclick="pedirProducto('Salchipapa con Piña', 44000)">
-                            <div class="item-info"><h3>Con Piña</h3><p>+ Piña caramelizada</p></div>
-                            <div class="precio">$44.000</div>
-                        </div>
-                        <div class="item" onclick="pedirProducto('Salchipapa DANIS Especial', 65000)">
-                            <div class="item-info"><h3>DANI'S Especial</h3><p>Full: Todo lo anterior</p></div>
-                            <div class="precio">$65.000</div>
+                <!-- PIZZAS -->
+                <div class="menu-seccion">
+                    <img src="pizza.jpg" alt="Pizzas El Dani's" class="menu-foto" onclick="abrirWhatsApp('Hola, quiero ver las pizzas')">
+                    <div class="menu-contenido">
+                        <h2 class="menu-titulo">🍕 PIZZAS</h2>
+                        <p class="menu-sub"><strong>Sabores:</strong> Hawaiana, Jamón, Salami, Peperoni, Mexicana, Maíz, Tocineta, Pollo</p>
+                        <div class="productos">
+                            <div class="item" onclick="pedirProducto('Pizza Personal 4 porciones', 12000)">
+                                <div class="item-info"><h3>Personal</h3><p>4 Porciones</p></div>
+                                <div class="precio">$12.000</div>
+                            </div>
+                            <div class="item" onclick="pedirProducto('Pizza Pequeña 8 porciones', 17000)">
+                                <div class="item-info"><h3>Pequeña</h3><p>8 Porciones</p></div>
+                                <div class="precio">$17.000</div>
+                            </div>
+                            <div class="item" onclick="pedirProducto('Pizza Mediana 12 porciones', 22000)">
+                                <div class="item-info"><h3>Mediana</h3><p>12 Porciones</p></div>
+                                <div class="precio">$22.000</div>
+                            </div>
+                            <div class="item" onclick="pedirProducto('Pizza Familiar 16 porciones', 32000)">
+                                <div class="item-info"><h3>Familiar</h3><p>16 Porciones</p></div>
+                                <div class="precio">$32.000</div>
+                            </div>
+                            <div class="item" onclick="pedirProducto('Pizza Mega Familiar 20 porciones', 45000)">
+                                <div class="item-info"><h3>Mega Familiar</h3><p>20 Porciones</p></div>
+                                <div class="precio">$45.000</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- HOT DOG -->
-            <div class="menu-seccion">
-                <img src="perro.jpg" alt="Hot Dogs El Dani's" class="menu-foto" onclick="abrirWhatsApp('Hola, quiero ver los hot dogs')">
-                <div class="menu-contenido">
-                    <h2 class="menu-titulo">🌭 HOT DOGS</h2>
-                    <p class="menu-sub">Salchicha americana premium</p>
-                    <div class="productos">
-                        <div class="item" onclick="pedirProducto('Hot Dog Sencillo', 7000)">
-                            <div class="item-info"><h3>Sencillo</h3></div>
-                            <div class="precio">$7.000</div>
-                        </div>
-                        <div class="item" onclick="pedirProducto('Hot Dog Con Papas', 9000)">
-                            <div class="item-info"><h3>Con Papas</h3></div>
-                            <div class="precio">$9.000</div>
-                        </div>
-                        <div class="item" onclick="pedirProducto('Hot Dog Cazador', 10000)">
-                            <div class="item-info"><h3>Cazador</h3></div>
-                            <div class="precio">$10.000</div>
-                        </div>
-                        <div class="item" onclick="pedirProducto('Hot Dog Ranchero', 12000)">
-                            <div class="item-info"><h3>Ranchero</h3></div>
-                            <div class="precio">$12.000</div>
-                        </div>
-                        <div class="item" onclick="pedirProducto('Hot Dog Suizo', 14000)">
-                            <div class="item-info"><h3>Suizo</h3></div>
-                            <div class="precio">$14.000</div>
+                <!-- SALCHIPAPA -->
+                <div class="menu-seccion">
+                    <img src="salchipapa.jpg" alt="Salchipapas El Dani's" class="menu-foto" onclick="abrirWhatsApp('Hola, quiero ver las salchipapas')">
+                    <div class="menu-contenido">
+                        <h2 class="menu-titulo">🍟 SALCHIPAPAS</h2>
+                        <p class="menu-sub">La más pedida de Valledupar</p>
+                        <div class="productos">
+                            <div class="item" onclick="pedirProducto('Salchipapa Sencilla', 12000)">
+                                <div class="item-info"><h3>Sencilla</h3></div>
+                                <div class="precio">$12.000</div>
+                            </div>
+                            <div class="item" onclick="pedirProducto('Salchipapa con Chorizo y Butti', 16000)">
+                                <div class="item-info"><h3>Con Chorizo y Butti</h3></div>
+                                <div class="precio">$16.000</div>
+                            </div>
+                            <div class="item" onclick="pedirProducto('Salchipapa con Pollo y Maíz', 24000)">
+                                <div class="item-info"><h3>Con Pollo y Maíz</h3></div>
+                                <div class="precio">$24.000</div>
+                            </div>
+                            <div class="item" onclick="pedirProducto('Salchipapa Ranchera', 34000)">
+                                <div class="item-info"><h3>Ranchera</h3><p>+ Tocineta + Jamón</p></div>
+                                <div class="precio">$34.000</div>
+                            </div>
+                            <div class="item" onclick="pedirProducto('Salchipapa con Piña', 44000)">
+                                <div class="item-info"><h3>Con Piña</h3><p>+ Piña caramelizada</p></div>
+                                <div class="precio">$44.000</div>
+                            </div>
+                            <div class="item" onclick="pedirProducto('Salchipapa DANIS Especial', 65000)">
+                                <div class="item-info"><h3>DANI'S Especial</h3><p>Full: Todo lo anterior</p></div>
+                                <div class="precio">$65.000</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- PATACONES - SOLO FOTO DE PATACON -->
-            <div class="menu-seccion">
-                <img src="patacon.jpg" alt="Patacón El Dani's" class="menu-foto" onclick="abrirWhatsApp('Hola, quiero ver los patacones')">
-                <div class="menu-contenido">
-                    <h2 class="menu-titulo">🫓 PATACONES</h2>
-                    <p class="menu-sub">Plátano verde crocante</p>
-                    <div class="productos">
-                        <div class="item" onclick="pedirProducto('Patacón Completo', 18000)">
-                            <div class="item-info"><h3>Patacón Completo</h3><p>Salchicha, chorizo, butifarra, pollo, maíz, tocineta</p></div>
-                            <div class="precio">$18.000</div>
-                        </div>
-                    </div>
-                    <h3 style="color:#c41e3a; margin:20px 0 12px 0; font-size:1.1rem;">Adicionales:</h3>
-                    <div class="productos">
-                        <div class="item" onclick="pedirProducto('Queso Costeño', 3000)">
-                            <div class="item-info"><h3>Queso Costeño</h3></div>
-                            <div class="precio">$3.000</div>
-                        </div>
-                        <div class="item" onclick="pedirProducto('Salchicha Ranchera', 3000)">
-                            <div class="item-info"><h3>Salchicha Ranchera</h3></div>
-                            <div class="precio">$3.000</div>
-                        </div>
-                        <div class="item" onclick="pedirProducto('Queso Mozzarella', 5000)">
-                            <div class="item-info"><h3>Queso Mozzarella</h3></div>
-                            <div class="precio">$5.000</div>
-                        </div>
-                        <div class="item" onclick="pedirProducto('Porción De Papas', 6000)">
-                            <div class="item-info"><h3>Porción De Papas</h3></div>
-                            <div class="precio">$6.000</div>
+                <!-- HOT DOG -->
+                <div class="menu-seccion">
+                    <img src="perro.jpg" alt="Hot Dogs El Dani's" class="menu-foto" onclick="abrirWhatsApp('Hola, quiero ver los hot dogs')">
+                    <div class="menu-contenido">
+                        <h2 class="menu-titulo">🌭 HOT DOGS</h2>
+                        <p class="menu-sub">Salchicha americana premium</p>
+                        <div class="productos">
+                            <div class="item" onclick="pedirProducto('Hot Dog Sencillo', 7000)">
+                                <div class="item-info"><h3>Sencillo</h3></div>
+                                <div class="precio">$7.000</div>
+                            </div>
+                            <div class="item" onclick="pedirProducto('Hot Dog Con Papas', 9000)">
+                                <div class="item-info"><h3>Con Papas</h3></div>
+                                <div class="precio">$9.000</div>
+                            </div>
+                            <div class="item" onclick="pedirProducto('Hot Dog Cazador', 10000)">
+                                <div class="item-info"><h3>Cazador</h3></div>
+                                <div class="precio">$10.000</div>
+                            </div>
+                            <div class="item" onclick="pedirProducto('Hot Dog Ranchero', 12000)">
+                                <div class="item-info"><h3>Ranchero</h3></div>
+                                <div class="precio">$12.000</div>
+                            </div>
+                            <div class="item" onclick="pedirProducto('Hot Dog Suizo', 14000)">
+                                <div class="item-info"><h3>Suizo</h3></div>
+                                <div class="precio">$14.000</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-        </div>
-
-        <a href="https://wa.me/573216080520?text=Hola%20El%20Dani's,%20quiero%20hacer%20un%20domicilio" class="btn-wsp" ta
+                <!-- PATACONES -->
+                <div class="menu-seccion">
+                    <img src="patacon.jpg" alt="Patacón El Dani's" class="menu-foto" onclick="abrirWhatsApp('Hola, quiero ver los patacones')">
+                    <div class="menu-contenido">
+                        <h2 class="menu-titulo">🫓 PATACONES</h2>
+                        <p class="menu-sub
