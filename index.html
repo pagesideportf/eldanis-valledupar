@@ -3,222 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Dani's Mareigua | Hamburguesas, Salchipapas y Pizza Valledupar</title>
-    <meta name="description" content="El Dani's - El sabor que buscas en Mareigua, Valledupar. Hamburguesas, salchipapas, patacones y pizza. Domicilios hasta las 2 AM. Pide ya por WhatsApp.">
-    <link rel="icon" href="https://i.imgur.com/8QfL4dM.png">
+    <title>El Dani's - Comidas Rápidas en Mareigua, Valledupar</title>
     <style>
-        :root {
-            --amarillo: #FFC300;
-            --negro: #1A1A1A;
-            --gris: #2D2D2D;
-            --blanco: #FFFFFF;
-            --verde-wa: #25D366;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Arial', sans-serif; 
+            background: #0a0a0a; 
+            color: white; 
+            scroll-behavior: smooth;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background: var(--negro); color: var(--blanco); line-height: 1.6; }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-        
-        /* HEADER HERO */
         .hero {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://i.imgur.com/Xt8L9sP.jpg');
-            background-size: cover; background-position: center;
-            padding: 100px 0; text-align: center;
+            min-height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
+                        url('https://images.unsplash.com/photo-1568901346375-23c945676c33?w=1200') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
         }
-        .logo { width: 120px; margin-bottom: 20px; }
-        .hero h1 { font-size: 3rem; font-weight: 900; color: var(--amarillo); margin-bottom: 10px; }
-        .hero p { font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9; }
-        .btn-wa {
-            background: var(--verde-wa); color: white; padding: 18px 35px;
-            border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.1rem;
-            display: inline-block; transition: 0.3s; box-shadow: 0 5px 20px rgba(37,211,102,0.4);
+        .hero-content h1 { 
+            font-size: 3.2rem; 
+            color: #FFC107; 
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         }
-        .btn-wa:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(37,211,102,0.6); }
-        .horario { margin-top: 15px; font-weight: 600; color: var(--amarillo); }
-        
-        /* MENU */
-        .menu { padding: 80px 0; }
-        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 50px; }
-        .section-title span { color: var(--amarillo); }
-        .categorias { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
-        .categoria { background: var(--gris); border-radius: 20px; overflow: hidden; }
-        .categoria-header { background: var(--amarillo); color: var(--negro); padding: 15px; text-align: center; }
-        .categoria-header h3 { font-size: 1.5rem; font-weight: 800; }
-        .item { padding: 15px 20px; border-bottom: 1px solid #3a3a3a; display: flex; justify-content: space-between; align-items: center; }
-        .item:last-child { border-bottom: none; }
-        .item-info h4 { font-size: 1rem; margin-bottom: 5px; }
-        .item-info p { font-size: 0.8rem; opacity: 0.7; }
-        .item-precio { font-weight: 700; color: var(--amarillo); }
-        .btn-add {
-            background: var(--amarillo); color: var(--negro); border: none;
-            padding: 8px 15px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-left: 10px;
+        .hero-content .tagline { 
+            font-size: 1.2rem; 
+            margin-bottom: 25px;
+            color: #f1f1f1;
         }
-        
-        /* ESTRELLA */
-        .estrella { 
-            background: var(--gris); margin: 40px 0; padding: 30px; border-radius: 20px;
-            display: flex; align-items: center; gap: 30px; flex-wrap: wrap;
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+            padding: 18px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            transition: 0.3s;
         }
-        .estrella img { width: 250px; border-radius: 15px; }
-        .estrella-info h3 { font-size: 2rem; color: var(--amarillo); }
-        .estrella-info p { margin: 10px 0 20px 0; }
-        
-        /* FOOTER */
-        .footer { background: #111; padding: 50px 0; text-align: center; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; text-align: left; }
-        .footer h4 { color: var(--amarillo); margin-bottom: 15px; }
-        .qr { width: 120px; margin: 10px; }
-        
-        /* CARRITO FLOTANTE */
-        .carrito {
-            position: fixed; bottom: 20px; right: 20px; z-index: 1000;
+        .btn-whatsapp:hover {
+            transform: scale(1.05);
         }
-        .carrito-btn {
-            background: var(--amarillo); color: var(--negro); width: 70px; height: 70px;
-            border-radius: 50%; border: none; font-size: 1.8rem; cursor: pointer;
-            box-shadow: 0 5px 20px rgba(255,195,0,0.5);
+        .info-bar {
+            margin-top: 20px;
+            font-size: 1rem;
         }
-        .carrito-count {
-            position: absolute; top: -5px; right: -5px; background: red; color: white;
-            width: 25px; height: 25px; border-radius: 50%; font-size: 0.8rem; font-weight: 700;
-            display: flex; align-items: center; justify-content: center;
+        .estado {
+            color: #4CAF50;
+            font-weight: bold;
+            margin-bottom: 8px;
         }
-        
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2rem; }
-            .estrella { flex-direction: column; text-align: center; }
+        .direccion {
+            color: #ddd;
         }
-    </style>
-</head>
-<body>
-
-    <!-- HERO -->
-    <section class="hero">
-        <div class="container">
-            <img src="https://i.imgur.com/8QfL4dM.png" alt="El Dani's Logo" class="logo">
-            <h1>EL DANI'S</h1>
-            <p>El sabor que buscas en Mareigua, Valledupar</p>
-            <a href="#" class="btn-wa" onclick="enviarPedido()">🔥 PEDIR AHORA POR WHATSAPP</a>
-            <div class="horario" id="horario">Abierto HOY hasta las 2:00 AM</div>
-        </div>
-    </section>
-
-    <!-- MENÚ -->
-    <section class="menu">
-        <div class="container">
-            <h2 class="section-title">Nuestro <span>Menú</span></h2>
-            
-            <div class="estrella">
-                <img src="https://i.imgur.com/Xt8L9sP.jpg" alt="Hamburguesa Especial DANIS">
-                <div class="estrella-info">
-                    <h3>Hamburguesa Especial DANIS</h3>
-                    <p>Doble carne de res, queso, ranchera. La más brutal de Valledupar.</p>
-                    <strong style="font-size:1.5rem; color:var(--amarillo);">$20.000</strong>
-                    <br><br>
-                    <button class="btn-add" onclick="addToCart('Hamburguesa Especial DANIS', 20000)">+ Agregar</button>
-                </div>
-            </div>
-
-            <div class="categorias">
-                <!-- HAMBURGUESAS -->
-                <div class="categoria">
-                    <div class="categoria-header"><h3>🍔 HAMBURGUESAS</h3></div>
-                    <div class="item"><div class="item-info"><h4>Hamburguesa Sencilla</h4></div><div><span class="item-precio">$10.000</span><button class="btn-add" onclick="addToCart('Hamburguesa Sencilla', 10000)">+</button></div></div>
-                    <div class="item"><div class="item-info"><h4>Hamburguesa Ranchera</h4></div><div><span class="item-precio">$13.000</span><button class="btn-add" onclick="addToCart('Hamburguesa Ranchera', 13000)">+</button></div></div>
-                    <div class="item"><div class="item-info"><h4>Hamburguesa Con Papas</h4></div><div><span class="item-precio">$14.000</span><button class="btn-add" onclick="addToCart('Hamburguesa Con Papas', 14000)">+</button></div></div>
-                    <div class="item"><div class="item-info"><h4>Hamburguesa Doble Carne</h4></div><div><span class="item-precio">$16.000</span><button class="btn-add" onclick="addToCart('Hamburguesa Doble Carne', 16000)">+</button></div></div>
-                </div>
-
-                <!-- SALCHIPAPAS -->
-                <div class="categoria">
-                    <div class="categoria-header"><h3>🍟 SALCHIPAPAS</h3></div>
-                    <div class="item"><div class="item-info"><h4>Salchipapa Sencilla</h4></div><div><span class="item-precio">$12.000</span><button class="btn-add" onclick="addToCart('Salchipapa Sencilla', 12000)">+</button></div></div>
-                    <div class="item"><div class="item-info"><h4>Salchipapa Mixta</h4><p>Salchicha, Chorizo, Butti</p></div><div><span class="item-precio">$16.000</span><button class="btn-add" onclick="addToCart('Salchipapa Mixta', 16000)">+</button></div></div>
-                    <div class="item"><div class="item-info"><h4>Salchipapa Full</h4><p>Pollo, Maíz</p></div><div><span class="item-precio">$24.000</span><button class="btn-add" onclick="addToCart('Salchipapa Full', 24000)">+</button></div></div>
-                    <div class="item"><div class="item-info"><h4>Salchipapa DANI'S Especial</h4><p>La bestia pa' 3 personas</p></div><div><span class="item-precio">$65.000</span><button class="btn-add" onclick="addToCart('Salchipapa DANI\'S Especial', 65000)">+</button></div></div>
-                </div>
-
-                <!-- PIZZA Y OTROS -->
-                <div class="categoria">
-                    <div class="categoria-header"><h3>🍕 PIZZA Y MÁS</h3></div>
-                    <div class="item"><div class="item-info"><h4>Pizza Personal 4 Porciones</h4></div><div><span class="item-precio">$12.000</span><button class="btn-add" onclick="addToCart('Pizza Personal', 12000)">+</button></div></div>
-                    <div class="item"><div class="item-info"><h4>Pizza Familiar 16 Porciones</h4></div><div><span class="item-precio">$32.000</span><button class="btn-add" onclick="addToCart('Pizza Familiar', 32000)">+</button></div></div>
-                    <div class="item"><div class="item-info"><h4>Patacón Mixto</h4><p>Salchicha, chorizo, butifarra, pollo</p></div><div><span class="item-precio">$18.000</span><button class="btn-add" onclick="addToCart('Patacón Mixto', 18000)">+</button></div></div>
-                    <div class="item"><div class="item-info"><h4>Hot Dog Sencillo</h4></div><div><span class="item-precio">$7.000</span><button class="btn-add" onclick="addToCart('Hot Dog Sencillo', 7000)">+</button></div></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div>
-                    <h4>UBICACIÓN</h4>
-                    <p>Mz 15 casa 46 - Mareigua<br>Valledupar, Cesar</p>
-                    <a href="https://maps.google.com/?q=Mz+15+casa+46+Mareigua+Valledupar" target="_blank" style="color:var(--amarillo);">Ver en Google Maps</a>
-                </div>
-                <div>
-                    <h4>HORARIOS</h4>
-                    <p>Lunes a Domingo<br>5:00 PM - 2:00 AM</p>
-                    <p style="color:var(--amarillo);">Domicilios en todo Valledupar</p>
-                </div>
-                <div>
-                    <h4>MEDIOS DE PAGO</h4>
-                    <p>Nequi • Bancolombia • Efectivo</p>
-                    <img src="https://i.imgur.com/5v5Zv1K.png" alt="QR Nequi" class="qr">
-                </div>
-            <p style="margin-top: 40px; opacity: 0.6;">© 2026 El Dani's - El sabor que buscas</p>
-        </div>
-    </footer>
-
-    <!-- CARRITO FLOTANTE -->
-    <div class="carrito">
-        <button class="carrito-btn" onclick="enviarPedido()">🛒</button>
-        <div class="carrito-count" id="cart-count">0</div>
-    </div>
-
-    <script>
-        let cart = [];
-        const numeroWA = "573216080520";
-
-        function addToCart(nombre, precio) {
-            cart.push({ nombre, precio });
-            document.getElementById('cart-count').innerText = cart.length;
-            alert(`Agregaste: ${nombre}`);
+        .menu {
+            padding: 50px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-
-        function enviarPedido() {
-            if (cart.length === 0) {
-                window.open(`https://wa.me/${numeroWA}?text=Hola El Dani's, quiero hacer un pedido`, '_blank');
-                return;
-            }
-            let mensaje = "Hola El Dani's, mi pedido:%0A";
-            let total = 0;
-            cart.forEach(item => {
-                mensaje += `• ${item.nombre} - $${item.precio.toLocaleString()}%0A`;
-                total += item.precio;
-            });
-            mensaje += `%0ATotal: $${total.toLocaleString()}%0A%0AMi dirección es: `;
-            window.open(`https://wa.me/${numeroWA}?text=${mensaje}`, '_blank');
-            cart = [];
-            document.getElementById('cart-count').innerText = '0';
+        .menu h2 {
+            text-align: center;
+            font-size: 2.3rem;
+            margin-bottom: 40px;
         }
-
-        // Horario dinámico
-        function actualizarHorario() {
-            const hora = new Date().getHours();
-            const horarioEl = document.getElementById('horario');
-            if (hora >= 17 || hora < 2) {
-                horarioEl.innerHTML = "🟢 ABIERTO AHORA hasta las 2:00 AM";
-                horarioEl.style.color = "#25D366";
-            } else {
-                horarioEl.innerHTML = "🔴 CERRADO - Abrimos a las 5:00 PM";
-                horarioEl.style.color = "#FF4444";
-            }
+        .menu h2 span { color: #FFC107; }
+        .categoria {
+            margin-bottom: 50px;
         }
-        actualizarHorario();
-        setInterval(actualizarHorario, 60000);
-    </script>
-</body>
-</html>
+        .categoria h3 {
+            font-size: 1.8rem;
+            color: #FFC107;
+            margin-bottom: 20px;
