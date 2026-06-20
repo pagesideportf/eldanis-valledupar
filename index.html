@@ -308,7 +308,26 @@
             font-size: 0.9rem;
             margin-bottom: 15px;
             font-weight: 600;
-        }
+      
+
+  } /* ARREGLO PA QUE EL QR SE VEA COMPLETO */
+.menu-seccion {
+  height: auto !important;      /* Quita altura fija */
+  overflow: visible !important; /* No recortes nada */
+  text-align: center;
+  padding: 25px 15px;
+}
+
+.qr-whatsapp {
+  width: 90% !important;
+  max-width: 320px !important;
+  height: auto !important;       /* CLAVE: altura automática */
+  object-fit: contain !important; /* Muestra imagen completa */
+  display: block;
+  margin: 0 auto 20px auto;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+}
     </style>
 </head>
 <body>
@@ -510,7 +529,7 @@
 </div>
 <!-- QR WHATSAPP - AL FINAL DEL MENU -->
 <div class="menu-seccion">
-    <img src="qrdanis2.jpg" alt="QR WhatsApp El Dani's" class="menu-foto" 
+    <img src="qrdanis2.jpg" alt="QR WhatsApp El Dani's" class="qr-whatsapp" 
     onclick="abrirWhatsApp('Hola, quiero hacer un pedido')">
     
     <div class="menu-contenido">
